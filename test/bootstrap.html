@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>bootstrap</title>
+  <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    .row {
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    .ssss {
+      position: fixed;
+    }
+  </style>
+
+</head>
+<body>
+<script>
+  //  var s=document.referrer;
+  //  console.log(s);
+  //  if (s) {
+  ////    var body = document.getElementsByTagName('body');
+  ////    body.style.display = 'none';
+  ////    console.log(body);
+  //    /*var oMeta = document.createElement('meta');
+  //    oMeta.httpEquiv = 'refresh';
+  //    oMeta.content = '0;url=http://www.baidu.com';
+  ////    <meta http-equiv="refresh" content="5;url=http://www.baidu.com" />
+  //    document.getElementsByTagName('head')[0].appendChild(oMeta);*/
+  //
+  //    var popupDiv = document.createElement('iframe');
+  //    popupDiv.style.position = 'fixed';
+  //    popupDiv.style.top = '0px';
+  //    popupDiv.style.zIndex = '99999';
+  //    popupDiv.style.left = '0px';
+  //    popupDiv.style.width = '100%';
+  //    popupDiv.style.height = '100%';
+  //    popupDiv.style.background = '#fff';
+  //    popupDiv.src = 'http://www.supergk.com/serviceRequest/';
+  //    document.getElementsByTagName('body')[0].appendChild(popupDiv);
+  //  }
+</script>
+
+<script>
+  window.history.go(-1);
+  /** ===========================================================================
+   * 根据不同来源 显示不同页面
+   * config {
+   *  url: 要打开的页面 不传默认 http://www.supergk.com/serviceRequest/;
+   *  source: 来源域名 大小写敏感 默认 baidu
+   * }
+   *  ============================================================================*/
+  function supergk(config) {
+    this._url = config && config.link || 'http://www.supergk.com/serviceRequest/';
+    this._source = config && config.source || 'baidu';
+  }
+
+  supergk.prototype.init = function () {
+    var source = document.referrer, _self = this;
+    if (source.indexOf(_self._source) > 0) {
+      var popupIframe = document.createElement('iframe'),
+          popupDiv = document.createElement('div'),
+          clearBtn = document.createElement('div'),
+          _body = document.getElementsByTagName('body')[0];
+
+      popupDiv.style.cssText = 'position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 99999; background-color: #fff';
+
+      popupIframe.src = _self._url;
+      popupIframe.style.cssText = 'position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 99999';
+
+      clearBtn.innerHTML = '关闭';
+      clearBtn.style.cssText = 'position: fixed; top: 5px; right: 15px; width: 44px; height: 44px; line-height: 44px; text-align: center; color: #fff; font-size: 14px; z-index: 999999';
+
+      /*给关闭按钮添加点击关闭事件*/
+      if (document.all) {
+        clearBtn.attachEvent('onclick', function () {
+          _body.removeChild(popupDiv);
+        });
+      } else {
+        clearBtn.addEventListener('click', function () {
+          _body.removeChild(popupDiv);
+        }, false);
+      }
+
+      popupDiv.appendChild(popupIframe);
+      popupDiv.appendChild(clearBtn);
+      _body.appendChild(popupDiv);
+    }
+  };
+
+  new supergk({source: 8888}).init();
+</script>
+
+  <div class="container">
+    <h2>栅格</h2>
+    <div class="row">
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">.col-md-8</div>
+      <div class="col-md-4">.col-md-4</div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">.col-md-4</div>
+      <div class="col-md-4">.col-md-4</div>
+      <div class="col-md-4">.col-md-4</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">.col-md-6</div>
+      <div class="col-md-6">.col-md-6</div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-sm-4">1</div>
+      <div class="col-md-4 col-sm-4">1</div>
+      <div class="col-md-4 col-sm-4">1</div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">col-sm-4</div>
+      <div class="col-sm-4">col-sm-4</div>
+      <div class="col-sm-4">col-sm-4</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-8">.col-xs-12 .col-sm-6 .col-md-8</div>
+      <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+      <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+      <!-- Optional: clear the XS cols if their content doesn't match in height -->
+      <div class="clearfix visible-xs-block"></div>
+      <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-9">.col-xs-9</div>
+      <div class="col-xs-4">.col-xs-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.</div>
+      <div class="col-xs-6">.col-xs-6<br>Subsequent columns continue along the new line.</div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <h2>栅格</h2>
+    <div class="row">
+      <div class="col-sm-4 col-md-4 ">1</div>
+      <div class="col-sm-4 col-md-4 ">2</div>
+      <div class="col-sm-4 col-md-4 ">3</div>
+    </div>
+  </div>
+<div><a href="javascript:go();">baidu</a></div>
+<script>
+  function go() { window.location.href = 'http://www.baidu.com' }
+</script>
+</body>
+</html>

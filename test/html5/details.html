@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>details 用法</title>
+
+  <style>
+    body {
+      font-size: 12px;
+    }
+    span {
+      font-weight: bold;
+    }
+
+   /* details {
+      overflow: hidden;
+      height: 0;
+      padding-left: 200px;
+      position: relative;
+      display: block;
+    }
+    details[open] {
+      height: auto;
+    }*/
+
+    menu {
+      padding: 0;
+      margin: 0;
+      display: block;
+      border: solid 1px #365167;
+      width: 222px;
+    }
+    menu li {
+      list-style-type: none;
+      padding: 5px;
+      margin: 5px;
+      height: 28px;
+      width: 200px;
+    }
+    menu li:hover {
+      border: solid 1px #7da2ce;
+      background-color: #cee3fd;
+    }
+    menu li span {
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <span>隐藏脚本</span>
+  <details>
+    本页生成与2016-12-28
+  </details>
+
+  <details open="open">
+    <summary>页面说明</summary>
+    本页生成
+  </details>
+
+  <menu>
+    <li><span>chrome</span></li>
+    <li><span>safari</span></li>
+    <li><span>firbox</span></li>
+  </menu>
+</body>
+</html>

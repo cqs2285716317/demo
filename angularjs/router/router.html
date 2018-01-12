@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, width=device-width">
+  <title>路由</title>
+
+  <script src="../../../lib/angular/angular.min.js"></script>
+  <script src="../../../lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body ng-app="myRouter">
+
+<div ng-controller="RouterController">
+  <input type="text" placeholder="测试" ng-pattern="[a-zA-Z]" ng-model="text">
+
+  <div ui-view="myTitle"></div>
+  <div ui-view="center"></div>
+  <h1>test</h1>
+  <div ui-view="bottom"></div>
+</div>
+
+</body>
+</html>

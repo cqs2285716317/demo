@@ -1,0 +1,31 @@
+body {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: #606c71;
+}
+
+article {
+    width: 500px;
+    margin: 0 auto;
+}
+
+h4 {
+}
+
+.form-control {
+    display: block;
+    width: 500px;
+    padding: 10px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px #000 solid;
+    min-height: 50px;
+    margin-bottom: 10px;
+}
+
+#btnLoad1, .btnLoad1 {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

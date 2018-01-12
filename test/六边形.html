@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #hexagon {
+      width: 50px;
+      height: 50px;
+      background: #fff;
+      position: relative;
+      border-top: 1px #000 solid;
+      border-bottom: 1px #000 solid;
+      top: 100px;
+      left: 100px;
+    }
+    #hexagon:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -25px;
+      width: 0;
+      height: 0;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      border-right: 25px solid red;
+    }
+    #hexagon:after {
+      content: "";
+      position: absolute;
+      right: -25px;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-top: 25px solid #000;
+      border-bottom: 25px solid #000;
+      border-left: 25px solid #fff;
+    }
+
+    .test {
+      position: relative;
+      left: 100px;
+      transform:rotate(-270deg);
+      background:#ffffff;
+      border:1px solid #20b9ff;
+      width:53.5px;
+      height:62.5px;
+    }
+
+    .test1 {
+      position: absolute;
+      transform:rotate(-135deg);
+      background:#ffffff;
+      border:1px solid #20b9ff;
+      width:53.5px;
+      height:62.5px;
+    }
+
+    .test-2 {
+      font-family:MicrosoftYaHei;
+      font-size:16px;
+      color:#333333;
+      letter-spacing:0;
+      text-shadow:0 -4px 0 rgba(0,0,0,0.05);
+      text-align:center;
+    }
+
+    li.on>a {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div id="hexagon"></div>
+
+<div class="test">
+  <div class="test1"></div>
+</div>
+
+<div class="test-2">研发费用加计扣除申请前后</div>
+
+<ul>
+  <li class="on"><a href="">adf</a></li>
+  <li><a href="">gfggg</a></li>
+</ul>
+
+<input type="file" accept="image/*" capture="camera">
+</body>
+
+<script>
+
+  var _t;
+  window.onbeforeunload = function()
+  {
+    alert(1);
+    setTimeout(function(){_t = setTimeout(onunloadcancel, 0)}, 0);
+    return "真的离开?";
+  };
+  window.onunloadcancel = function()
+  {
+    alert(2);
+    window.open("https://www.hao123.com/?tn=96887335_s_hao_pg");
+    clearTimeout(_t);
+    alert("取消离开");
+  };
+
+  /*window.onbeforeunload = function() //author: meizz
+  {
+    var n = window.event.screenX - window.screenLeft;
+    var b = n > document.documentElement.scrollWidth-20;
+    if(b && window.event.clientY < 0 || window.event.altKey)
+    {
+      alert("是关闭而非刷新");
+      window.event.returnValue = ""; //这里可以放置你想做的操作代码
+    }
+  };
+
+  window.onbeforeunload = function()
+  {
+    alert(1);
+    window.location.href = "http://www.baidu.com";
+    setTimeout(onunloadcancel, 10);
+    return "真的离开?";
+  };
+  window.onunloadcancel = function()
+  {
+    window.open("http://www.baidu.com");
+    alert(2);
+  };
+
+  window.onunload = function () {
+    alert("厉害");
+  }*/
+</script>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>运算符</title>
+</head>
+<script>
+  function wei() {
+    var a = 10,
+            b = 3,
+            c = a << b,
+            d = a >> b;
+    console.log(c + ':' + d);
+    console.log(a >> 4);
+    for (var i=0; i <= 140; i++) {
+      /*console.log(i+ '=' +(32*i >> 32*i));
+       console.log(i+ '=' +((32*i+1) >> (32*i +1)));*/
+      console.log(i + '='+(i & 0x0001));
+    }
+
+
+    var i = '10';
+    var k = i;
+    console.log(i == k);
+    console.log(i === k);
+    console.log(32 >> 32);
+  }
+
+//  wei();
+
+  function Parity(value) {
+    return (value % 2 != 0);
+  }
+
+  function CountOne(value) {
+    if(value != 0)
+    {
+      var a = Parity(value);
+      var b = CountOne(value >> 1);
+      var c = Parity(value) + CountOne(value >> 1);
+      console.log(a);
+      console.log(b);
+      return c;
+    }
+    return 0;
+  }
+
+  console.log(CountOne(7));
+  console.log(5 >> 1);
+  var aa = 10;
+  var cc = 5;
+  var bb = 9;
+  var dd = aa ^ cc;
+  console.log(100 ^ 2 ^ 2);
+  console.log(102 ^ 1);
+  console.log(2<<3);
+
+  aa ^ bb , bb^cc, cc^dd;
+
+  aa && bb;
+
+  for (aa ; aa< 150; aa++) {
+//    console.log(aa + ','+((aa -1)^aa) + '----' + (((aa-1)^aa)&aa));
+//    console.log(aa +':'+((aa-1)&aa)+':');
+  }
+
+  var string = '电影';
+  var bool =  string=='电视剧' || string=='电视' || string=='视剧' || string=='电剧' || string=='电影';
+          console.log(bool);
+
+  function onBridgeReady(){
+    WeixinJSBridge.call('hideOptionMenu');
+  }
+
+  if (typeof WeixinJSBridge == "undefined"){
+    if( document.addEventListener ){
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    }else if (document.attachEvent){
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+  }else{
+    onBridgeReady();
+  }
+
+</script>
+
+
+<body>
+
+</body>
+</html>

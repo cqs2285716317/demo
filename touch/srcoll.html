@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+  <title>html5向左滑动删除特效</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    header {
+      background: #f7483b;
+      border-bottom: 1px solid #ccc
+    }
+
+    header h2 {
+      text-align: center;
+      line-height: 54px;
+      font-size: 16px;
+      color: #fff
+    }
+
+    .list-ul {
+      overflow: hidden
+    }
+
+    .list-li {
+      line-height: 60px;
+      border-bottom: 1px solid #fcfcfc;
+      position: relative;
+      padding: 0 12px;
+      color: #666;
+      z-index: 1;
+      background: #f2f2f2;
+      -webkit-transform: translateX(0px);
+    }
+
+    .btn {
+      position: absolute;
+      top: 0;
+      right: -200px;
+      z-index: 10;
+      text-align: center;
+      background: #ffcb20;
+      color: #fff;
+      width: 200px
+    }
+
+    .delete { display: none; }
+  </style>
+  <script>
+
+    var str = '<p style="width:574px; overflow:hidden;word-break: break-all; word-wrap:break-word;">22222222222222222222222222222</p><p>阿萨德撒阿斯达少时诵诗书少时诵诗书水水水水撒打算大飒飒大师 安顺达多索多三少时诵诗书试试事实上事实上试试事实上事实上事实上事实上事实上事实上事实上事实上死神试试事实上事实上死神试试事实上事实上事实上事实上事实上事实上事实上事实上试试事实上事实上事实上事实上事实上事实上事实上事实上少时诵诗书试试事实上事实上试试事实上事实上事实上事实上事实上事实上事实上事实上谁谁谁谁谁谁水水水水啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊少时诵诗书水水水水试试事实上事实上事实上事实上事实上事实上事实上事实上死神试试事实上事实上死神试试事实上事实上事实上事实上事实上事实上事实上事实上试试事实上事实上事实上事实上事实上事实上事实上事实上死神试试事实上事实上死神试试事实上事实上事实上事实上事实上事实上事实上事实上试试事实上事实上事实上事实上事实上事实上事实上事实上搜索是事实上事实上</p><p>事实上事实上事实上事实上事实上是搜索试试事实上事实上事实上事实上事实上事实上事实上事实上</p>';
+    var substr = str.match(/<\S*(^((?!\<\/\S*\>).)*)\<\/\S*\>/);
+    var s = str.match(/^((?!\<\/\S*\>).)*/);
+    console.log(s);
+    console.log(substr);
+    /*
+     * 描述：html5苹果手机向左滑动删除特效
+     */
+
+
+
+    /*window.addEventListener('load', function() {
+      var initX; //触摸位置
+      var moveX; //滑动时的位置
+      var X = 0; //移动距离
+      var objX = 0; //目标对象位置
+      var touch = document.getElementById('ulTouch');
+      touch.addEventListener('touchstart', function(event) {
+//        event.preventDefault();
+        var obj = event.target.parentNode;
+        console.log(obj);
+        if (obj.className == "list-li") {
+          initX = event.targetTouches[0].pageX;
+          objX = (obj.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+        }
+        if (objX == 0) {
+          touch.addEventListener('touchmove', function(event) {
+//            event.preventDefault();
+            var obj = event.target.parentNode;
+            if (obj.className == "list-li") {
+              moveX = event.targetTouches[0].pageX;
+              X = moveX - initX;
+              if (X >= 0) {
+                obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+              } else if (X < 0) {
+                var l = Math.abs(X);
+                obj.style.WebkitTransform = "translateX(" + -l + "px)";
+                if (l > 80) {
+                  l = 80;
+                  obj.style.WebkitTransform = "translateX(" + -l + "px)";
+                }
+              }
+            }
+          });
+        } else if (objX < 0) {
+          touch.addEventListener('touchmove', function(event) {
+//            event.preventDefault();
+            var obj = event.target.parentNode;
+            if (obj.className == "list-li") {
+              moveX = event.targetTouches[0].pageX;
+              X = moveX - initX;
+              if (X >= 0) {
+                var r = -80 + Math.abs(X);
+                obj.style.WebkitTransform = "translateX(" + r + "px)";
+                if (r > 0) {
+                  r = 0;
+                  obj.style.WebkitTransform = "translateX(" + r + "px)";
+                }
+              } else { //向左滑动
+                obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+              }
+            }
+          });
+        }
+
+      });
+      touch.addEventListener('touchend', function(event) {
+//        event.preventDefault();
+        var obj = event.target.parentNode;
+        if (obj.className == "list-li") {
+          objX = (obj.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+          if (objX > -40) {
+            obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+            objX = 0;
+          } else {
+            obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+            objX = -80;
+          }
+        }
+      })
+    });
+
+    function deleteFn(obj) {
+      var touch = document.getElementById('ulTouch');
+      var child = obj.parentNode;
+      console.log('-------');
+      console.log();
+//      child.style.display = 'none';
+      obj.parentNode.parentNode.removeChild(child);
+    }*/
+
+    var global = {
+      addEvent: function (id, touch_x) {
+        window.addEventListener('load', function() {
+          var initX; //触摸位置
+          var moveX; //滑动时的位置
+          var X = 0; //移动距离
+          var objX = 0; //目标对象位置
+          var move_x = parseInt(touch_x);
+          var touch = document.getElementById(id);
+          touch.addEventListener('touchstart', function(event) {
+            var obj = event.target.parentNode;
+            if (obj.className == "list-li") {
+              initX = event.targetTouches[0].pageX;
+              objX = (obj.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+            }
+            if (objX == 0) {
+              touch.addEventListener('touchmove', function(event) {
+                var obj = event.target.parentNode;
+                if (obj.className == "list-li") {
+                  moveX = event.targetTouches[0].pageX;
+                  X = moveX - initX;
+                  if (X >= 0) {
+                    obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+                  } else if (X < 0) {
+                    var l = Math.abs(X);
+                    obj.style.WebkitTransform = "translateX(" + -l + "px)";
+                    if (l > move_x) {
+                      l = move_x;
+                      obj.style.WebkitTransform = "translateX(" + -l + "px)";
+                    }
+                  }
+                }
+              });
+            } else if (objX < 0) {
+              touch.addEventListener('touchmove', function(event) {
+                var obj = event.target.parentNode;
+                if (obj.className == "list-li") {
+                  moveX = event.targetTouches[0].pageX;
+                  X = moveX - initX;
+                  if (X >= 0) {
+                    var r = -move_x + Math.abs(X);
+                    obj.style.WebkitTransform = "translateX(" + r + "px)";
+                    if (r > 0) {
+                      r = 0;
+                      obj.style.WebkitTransform = "translateX(" + r + "px)";
+                    }
+                  } else { //向左滑动
+                    obj.style.WebkitTransform = "translateX(" + -move_x + "px)";
+                  }
+                }
+              });
+            }
+
+          });
+          touch.addEventListener('touchend', function(event) {
+            var obj = event.target.parentNode;
+            if (obj.className == "list-li") {
+              objX = (obj.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+              if (objX > -move_x/2) {
+                obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+                objX = 0;
+              } else {
+                obj.style.WebkitTransform = "translateX(" + -move_x + "px)";
+                objX = -move_x;
+              }
+            }
+          })
+        });
+      },
+      deleteChild: function (obj) {
+        var child = obj.parentNode;
+        child.parentNode.removeChild(child);
+      }
+    };
+
+    global.addEvent('ulTouch', 200);
+    
+    function deleteFn(obj) {
+      global.deleteChild(obj);
+    }
+  </script>
+</head>
+
+<body>
+<header>
+  <h2>消息列表</h2>
+</header>
+<section class="list">
+  <ul class="list-ul" id="ulTouch">
+    <li id="li" class="list-li">
+      <div class="con">
+        你的快递到了，请到楼下签收
+      </div>
+      <div class="btn" onclick="global.deleteChild(this)">删除</div>
+    </li>
+    <li class="list-li">
+      <div class="con">
+        哇，你在干嘛，快点来啊就等你了
+      </div>
+      <div class="btn" onclick="global.deleteChild(this)">删除</div>
+    </li>
+    <li class="list-li">
+      <div class="con">
+        哇，你在干嘛，快点来啊就等你了
+      </div>
+      <div class="btn" onclick="deleteFn(this)">删除1</div>
+    </li>
+    <li class="list-li">
+      <div class="con">
+        哇，你在干嘛，快点来啊就等你了
+      </div>
+      <div class="btn" onclick="deleteFn(this)">删除2</div>
+    </li>
+    <li class="list-li">
+      <div class="con">
+        哇，你在干嘛，快点来啊就等你了
+      </div>
+      <div class="btn" onclick="deleteFn(this)">删除3</div>
+    </li>
+    <li class="list-li">
+      <div class="con">
+        哇，你在干嘛，快点来啊就等你了
+      </div>
+      <div class="btn" onclick="deleteFn(this)">删除4</div>
+    </li>
+    <li class="list-li">
+      <div class="con">
+        哇，你在干嘛，快点来啊就等你了
+      </div>
+      <div class="btn" onclick="deleteFn(this)">删除5</div>
+    </li>
+    <li class="list-li">
+      <div class="con">
+        哇，你在干嘛，快点来啊就等你了
+      </div>
+      <div class="btn" onclick="deleteFn(this)">删除6</div>
+    </li>
+    <li class="list-li">
+      <div class="con">
+        哇，你在干嘛，快点来啊就等你了
+      </div>
+      <div class="btn" onclick="deleteFn(this)">删除7</div>
+    </li> <li class="list-li">
+    <div class="con">
+      哇，你在干嘛，快点来啊就等你了
+    </div>
+    <div class="btn" onclick="deleteFn(this)">删除8</div>
+  </li> <li class="list-li">
+    <div class="con">
+      哇，你在干嘛，快点来啊就等你了
+    </div>
+    <div class="btn" onclick="deleteFn(this)">删除9</div>
+  </li> <li class="list-li">
+    <div class="con">
+      哇，你在干嘛，快点来啊就等你了
+    </div>
+    <div class="btn" onclick="deleteFn(this)">删除10</div>
+  </li>
+
+
+
+
+  </ul>
+</section>
+
+
+<script>
+
+</script>
+</body>
+
+</html>

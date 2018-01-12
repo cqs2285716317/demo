@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>popup</title>
+
+  <!--<style>
+    #JS_POPUP {
+      position:fixed;top:80px;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.2);z-index: 999999;
+    }
+    #JS_POPUP .popup-main {
+      position:absolute;top:50%;left:50%;z-index:9999999;width:440px;margin-left:-220px;margin-top:-160px;text-align: center;background-color: #FFFFFF;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;padding-bottom:44px;
+    }
+    #JS_POPUP .popup-main .clear {
+      position: absolute;top:0;right:0;width: auto;padding:12px;
+    }
+    #JS_POPUP .popup-main .clear span {
+      background:#dcdcdc;width:11px;height:11px;line-height:11px;font-size:12px;border-radius:100%;text-align: center;display: inline-block;padding:5px;
+      color: #ffffff;
+    }
+    #JS_POPUP .popup-main .logo {
+      width: 115px;height:33px;vertical-align: top;margin-top: 30px;
+    }
+    #JS_POPUP .popup-main .title {
+      position: relative;
+      font-size:12px;
+      color:#b9b9b9;
+      margin-top: 24px;
+      letter-spacing:-0.62px;
+      text-align:center;
+    }
+    #JS_POPUP .popup-main .title:after,
+    #JS_POPUP .popup-main .title:before {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      margin-top: -0.5px;
+      background:#dcdcdc;
+      width:40px;
+      height:1px;
+      margin-left: 5px;
+    }
+    #JS_POPUP .popup-main .title:before {
+      margin-left: -45px;
+    }
+    #JS_POPUP .popup-main .input-group {
+      width: 280px;
+      margin: 24px auto 0 auto;
+    }
+    #JS_POPUP .popup-main .input-group p {
+      margin: 0;
+    }
+    #JS_POPUP .popup-main .input-group input {
+      background:#ffffff;
+      border:1px solid #b9b9b9;
+      border-radius:4px;
+      width:268px;
+      height:30px;
+      padding-left: 10px;
+      margin: 0 auto 10px auto;
+    }
+    #JS_POPUP .popup-main .input-group .code input {
+      width: 188px;
+    }
+    #JS_POPUP .popup-main .input-group .code span {
+      display: inline-block;
+      background:#ffffff;
+      border:1px solid #b9b9b9;
+      border-radius:4px;
+      width:74px;
+      height:30px;
+      line-height: 30px;
+      font-size:12px;
+      color:#6e7184;
+      letter-spacing:-0.62px;
+      margin-left: 4px;
+      text-align:center;
+    }
+    #JS_POPUP .popup-main .input-group button {
+      background:#ff1d43;
+      border-radius:4px;
+      width:280px;
+      height:32px;
+      border: 1px #ff1d43 solid;
+      font-size:14px;
+      color:#ffffff;
+      letter-spacing:-0.73px;
+      text-align:center;
+    }
+    #JS_POPUP .popup-main .input-group .subjoin {
+      font-size: 12px;
+      color: #6E7184;
+      letter-spacing: -0.62px;
+      margin-top: 10px;
+      text-align: left;
+    }
+    #JS_POPUP .popup-main .input-group .subjoin span {
+      color: #ff1d43;
+      margin-left: 5px;
+    }
+  </style>-->
+</head>
+<body>
+<!--<div id="JS_POPUP">
+  <div class="popup-main">
+    <div class="clear" id="JS_POPUP_Clear"><span>X</span></div>
+    <img class="logo" src="../images/img-malilogo.png" alt="logo">
+    <p class="title">登录平台，发布需求/寻找项目</p>
+    <form action="#">
+      <div class="input-group">
+        <input type="tel" placeholder="手机号码">
+        <p class="code"><input type="tel" placeholder="验证码"><span>获取验证码</span></p>
+        <input class="JS_lg" type="password" placeholder="输入登录密码">
+        <button>登录</button>
+        <p class="subjoin Js_rg">还没有账号？<span>点击注册</span></p>
+        <p class="subjoin JS_lg">已经注册？<span>点击登陆</span></p>
+      </div>
+    </form>
+  </div>
+</div>-->
+<script src="../../lib/jquery/dist/jquery.min.js"></script>
+<script>
+  var LOGIN_POPUP = {
+    config: {
+      style: '<style>#JS_POPUP {' +
+      'position:fixed;top:80px;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.2);z-index: 999999;}' +
+      '#JS_POPUP .popup-main {' +
+      'position:absolute;top:50%;left:50%;z-index:9999999;width:440px;margin-left:-220px;margin-top:-160px;text-align: center;background-color: #FFFFFF;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;padding-bottom: 30px;' +
+      '}#JS_POPUP .popup-main .clear {' +
+      'position: absolute;top:0;right:0;width: auto;padding:12px;}' +
+      '#JS_POPUP .popup-main .clear span {' +
+      'background:#dcdcdc;width:11px;height:11px;line-height:11px;font-size:12px;border-radius:100%;text-align: center;display: inline-block;padding:5px;color: #ffffff;}' +
+      '#JS_POPUP .popup-main .logo {width: 115px;height:33px;vertical-align: top;margin-top: 30px}' +
+      '#JS_POPUP .popup-main .title {position: relative;font-size:12px;color:#b9b9b9;margin-top: 24px;letter-spacing:-0.62px;text-align:center;}' +
+      '#JS_POPUP .popup-main .title:after,' +
+      '#JS_POPUP .popup-main .title:before {content: " ";position: absolute;top: 50%;margin-top: -0.5px;background:#dcdcdc;width:40px;height:1px;margin-left: 5px;}#JS_POPUP .popup-main .title:before {margin-left: -45px;}' +
+      '#JS_POPUP .popup-main .input-group {width: 280px;margin: 24px auto 0 auto;}' +
+      '#JS_POPUP .popup-main .input-group p {margin: 0;}' +
+      '#JS_POPUP .popup-main .input-group input {' +
+      'background:#ffffff;border:1px solid #b9b9b9;border-radius:4px;width:268px;height:30px;padding-left: 10px;margin: 0 auto 10px auto;}' +
+      '#JS_POPUP .popup-main .input-group .code input {width: 188px;}' +
+      '#JS_POPUP .popup-main .input-group .code button {' +
+      'display: inline-block;background:#ffffff;border:1px solid #b9b9b9;cursor:pointer;border-radius:4px;width:74px;line-height: 30px;font-size:12px;color:#6e7184;letter-spacing:-0.62px;margin-left: 4px;text-align:center;}' +
+      '#JS_POPUP .popup-main .input-group a {display:inline-block;text-decoration:none;background:#ff1d43;border-radius:4px;width:280px;height:32px;line-height:32px;border: 1px #ff1d43 solid;font-size:14px;color:#ffffff;letter-spacing:-0.73px;text-align:center;}' +
+      ' #JS_POPUP .popup-main .input-group .subjoin {font-size: 12px;color: #6E7184;letter-spacing: -0.62px;margin-top: 10px;text-align: left;}' +
+      '#JS_POPUP .popup-main .input-group .subjoin span {color: #ff1d43;margin-left:5px;cursor: pointer;}</style>',
+      node: '<div id="JS_POPUP"><div class="popup-main"><div class="clear" id="JS_POPUP_Clear"><span>X</span></div><img class="logo" src="../images/img-malilogo.png" alt="logo"><p class="title">登录平台，发布需求/寻找项目</p>' +
+      '<form action="#"><div class="input-group"><input type="tel" class="JS_phone" placeholder="手机号码"><p class="code"><input type="tel" class="JS_code" placeholder="验证码"><button id="JS_popup_code">获取验证码</button></p>' +
+      '<input type="password" class="JS_lg" placeholder="输入登录密码"><a id="JS_popup_login_btn">登录</a><p class="subjoin Js_rg">还没有账号？<span id="JS_POPUP_RG">点击注册</span></p><p class="subjoin JS_lg">已经注册？<span id="JS_POPUP_LG">点击登陆</span></p></div></form></div>' +
+      '</div>'
+    },
+    init: function (type, callback_codeFn, callback_submitFn) {
+      var _self = this;
+      _self.add(type.type);
+      _self.addEvent();
+      _self.submit(callback_submitFn);
+      _self.submitCode(type, callback_codeFn);
+      _self.clear();
+    },
+    add: function (type) {
+      var _self = this;
+      var popup = $(_self.config.node),style = $(_self.config.style);
+      $('head').append(style);
+      $('body').append(popup);
+      type ? $('.JS_lg').hide() : $('.Js_rg').hide();
+    },
+    addEvent: function () {
+      $('#JS_POPUP_RG').click(function () {
+        $('.JS_lg').show();
+        $('.Js_rg').hide();
+      });
+      $('#JS_POPUP_LG').click(function () {
+        $('.JS_lg').hide();
+        $('.Js_rg').show();
+      });
+      $('.JS_phone').keyup(function () {
+        var sMobile = $(this).val();
+        $(this).val(' ');
+        $(this).val(sMobile.replace(/[^1-9]/ig,"").substring(0,12));
+      });
+    },
+    verify: function () {
+
+    },
+    submit: function (callback_submitFn) {
+      $('#JS_popup_login_btn').click(function (e) {
+        var config = {
+          target: e,
+          phone: $('.JS_phone').val(),
+          code: $('.JS_code').val(),
+          psd: $('.JS_lg').val()
+        };
+        callback_submitFn && callback_submitFn(config);
+      });
+    },
+    submitCode: function (obj, callback_codeFn) {
+      var _interval = obj.interval || 1000;
+      var code = $('#JS_popup_code');
+      code.click(function (e) {
+        var count = obj.interval_num || 60;
+        var inter_val = setInterval(function () {
+          code.attr('disabled', 'disabled');
+          code.css('background-color', '#ddd');
+          code.text(' ');
+          code.text(count);
+          count -= 1;
+          if (count < 0) {
+            clearInterval(inter_val);
+            code.text(' ');
+            code.text('重新获取');
+            code.removeAttr('disabled');
+            code.css('background-color', '#fff');
+          }
+        }, _interval);
+        callback_codeFn && callback_codeFn(e);
+      });
+    },
+    clear: function () {
+      var popup = $('#JS_POPUP');
+      $('#JS_POPUP_Clear').click(function () {
+        popup.remove();
+      });
+      popup.click(function (e) {
+        var target = e.target;
+        if (target.id && target.id == 'JS_POPUP') {
+          popup.remove();
+        }
+      });
+    }
+  };
+
+  LOGIN_POPUP.init({type: 1}, function (e) {
+    console.log(e);
+  },function (e) {
+    console.log(e);
+  });
+</script>
+</body>
+</html>

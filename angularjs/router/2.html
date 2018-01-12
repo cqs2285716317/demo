@@ -1,0 +1,12 @@
+
+<form ng-controller="TwoCtrl">
+  姓名：<input type="text" ng-model="name" placeholder="姓名">
+  账号：<input type="text" placeholder="账号">
+  <div>
+    <input ng-model="to"
+           type="email"
+           placeholder="Recipient" />
+    <textarea ng-model="emailBody" placeholder=""></textarea>
+    <pre>{{ previewText }}</pre>
+  </div>
+</form>

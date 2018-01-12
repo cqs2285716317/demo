@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <style>
+    h1 + p {
+      color: #00AA91;
+    }
+
+    /*h1 ~ p {*/
+      /*color: red;*/
+    /*}*/
+
+    .bg * span {
+      color: #ff1d43;
+    }
+
+    .inline {
+      height: 100px;
+      border: 1px #dcdcdc solid;
+      vertical-align: 50%;
+    }
+
+    .inline-1 {
+      display: inline;
+      margin-left: 50px;
+      padding: 0 20px;
+      border: 1px #ff1d43 solid;
+      height: 50px;
+      margin-top: 50px;
+    }
+
+    .inline-2 {
+      vertical-align: 50px;
+    }
+
+    fieldset {
+      border-radius: 5px;
+    }
+
+    #test_id {
+      color: #ff1d43;
+    }
+
+    .test {
+      color: #000000;
+    }
+
+    span {
+      font-size: 16px;
+      color: #00a0ff;
+    }
+
+
+    span.p_s {
+      color: #00a0ff;
+    }
+
+    .p span {
+      color: #000000;
+    }
+
+    #body span {
+      color: #000000;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    .tabs .tab ul li {
+      display: inline-block;
+      list-style: none;
+      width: 100px;
+      text-align: center;
+      padding: 10px 0;
+      border-right: 1px #000000 solid;
+      float: left;
+    }
+
+    .tabs .tab ul li:last-child {
+      border: 0;
+    }
+
+    .tabs .tab {
+      display: inline-block;
+      /*width: 300px;*/
+      border: 1px #000000 solid;
+      border-radius: 5px 5px 0 0;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .content {
+      margin-top: 20px;
+      border: 1px #000000 solid;
+      padding: 15px;
+    }
+
+    .content ul li {
+      line-height: 1.7;
+    }
+
+    .tab-select {
+      background-color: #dcdcdc;
+      color: #ffffff;
+    }
+
+
+    * {margin:0; padding:0;}
+    body {font:1em helvetica, arial, sans-serif;}
+    div#main_wrapper{
+      min-width:600px; max-width:1100px;
+      /*超过最大宽度时，居中布局*/
+      margin:0 auto;
+      /*背景图片默认从左上角开始拼接*/
+      background:url(images/bg_tile_150pxw.png) repeat-y #eee;
+    }
+    header {
+      padding:5px 10px;
+      background:#3f7ccf;
+    }
+    div#threecolwrap {
+      /*浮动强制它包围浮动的栏*/
+      float:left;
+      width:100%;
+      /*背景图片右对齐*/
+      background:url(images/bg_tile_210pxw.png) top right repeat-y;
+    }
+    div#twocolwrap {
+      background:url(images/bg_tile_210pxw.png) top right repeat-y;
+    }
+    div#twocolwrap {
+    /*浮动强制它包围浮动的栏*/
+      float:left;
+      width:100%;
+      /*把右栏拉到区块外边距腾出的位置上*/
+      margin-right:-210px;
+    }
+
+    nav {
+      float:left;
+      width:150px;
+      background:#f00;
+      padding:20px 0;
+    }
+    /*让子元素与栏边界保持一定距离*/
+    nav > * {margin:0 10px;}
+    article {
+      width:auto;
+      margin-left:150px;
+      /*在流动居中的栏右侧腾出空间*/
+      margin-right:210px;
+      background:#eee;
+      padding:20px 0;
+    }
+    /*让子元素与栏边界保持一定距离*/
+    article > * {margin:0 20px;}
+    aside {
+      float:left;
+      width:210px;
+      background:#ffed53;
+      padding:20px 0;
+    }
+    /*让子元素与栏边界保持一定距离*/
+    aside > * {margin:0 10px;}
+    footer {
+      clear:both;
+      width:100%;
+      text-align:center;
+      background:#000;
+    }
+  </style>
+
+</head>
+<body id="body">
+  <div class="bg">
+    <h1 onclick="myMove()">test</h1>
+    <p>1 <span>span</span> <span>span1</span></p>
+    <p>2 <span>span</span> <span>span1</span></p>
+
+    <ol>
+      <li>列表1</li>
+      <li>列表2</li>
+    </ol>
+
+    <div class="inline">
+      <div class="inline-1">测试inline-1</div>
+      <div class="inline-1 inline-2">测试inline-2</div>
+    </div>
+
+    <fieldset>
+      <legend>测试dfk的分就快来撒大家</legend>
+
+      <p>dfk的分就快来撒大家</p>
+    </fieldset>
+  </div>
+  <div class="bg">
+    <h1>test</h1>
+    <p>1 <span>span</span> <span>span1</span></p>
+    <p>2 <span>span</span> <span>span1</span></p>
+
+    <ol>
+      <li>列表1</li>
+      <li>列表2</li>
+    </ol>
+
+    <div class="inline">
+      <div class="inline-1">测试inline-1</div>
+      <div class="inline-1 inline-2">测试inline-2</div>
+    </div>
+
+    <fieldset>
+      <legend>测试dfk的分就快来撒大家</legend>
+
+      <p>dfk的分就快来撒大家</p>
+    </fieldset>
+  </div>
+
+  <table width="100%" border="1">
+    <colgroup align="right" width="10%"></colgroup>
+    <colgroup align="right" width="45%" style="color:#0000FF;"></colgroup>
+    <colgroup align="right" style="color:#0000FF;"></colgroup>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Price</th>
+    </tr>
+    <tr>
+      <td>3476896</td>
+      <td>My first HTML</td>
+      <td>$53</td>
+    </tr>
+    <tr>
+      <td>2489604</td>
+      <td>My first CSS</td>
+      <td>$47</td>
+    </tr>
+  </table>
+  <table width="100%" border="1">
+    <colgroup align="right" width="10%"></colgroup>
+    <colgroup align="right" width="45%" style="color:#0000FF;"></colgroup>
+    <colgroup align="right" style="color:#0000FF;"></colgroup>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Price</th>
+    </tr>
+    <tr>
+      <td>3476896</td>
+      <td>My first HTML</td>
+      <td>$53</td>
+    </tr>
+    <tr>
+      <td>2489604</td>
+      <td>My first CSS</td>
+      <td>$47</td>
+    </tr>
+  </table>
+  <button onclick="show_popup()">Create pop-up!</button>
+
+  <p><span class="test" id="test_id" style="color: #dcdcdc;">测试权重</span></p>
+
+  <p class="p"><span class="p_s">权重测试2</span></p>
+
+  <h2>tab demo</h2>
+
+  <div class="tabs">
+    <div class="tab"><ul>
+      <li class="tab-menu">tab1</li>
+      <li class="tab-menu">tab2</li>
+      <li class="tab-menu">tab3</li>
+    </ul></div>
+
+    <div class="content">
+      <ul>
+        <li>氨基酸的咖啡机看撒娇</li>
+        <li>氨基酸的咖啡机看撒娇</li>
+        <li>氨基酸的咖啡机看撒娇</li>
+      </ul>
+    </div>
+    <div class="content">
+      <ul>
+        <li>氨基酸的咖啡机看撒娇+1</li>
+        <li>氨基酸的咖啡机看撒娇+1</li>
+        <li>氨基酸的咖啡机看撒娇+1</li>
+      </ul>
+    </div>
+    <div class="content">
+      <ul>
+        <li>氨基酸的咖啡机看撒娇+2</li>
+        <li>氨基酸的咖啡机看撒娇+2</li>
+        <li>氨基酸的咖啡机看撒娇+2</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="div_1">
+    <p>dssdfsadfasd1</p>
+    <p>dssdfsadfasd2</p>
+    <p>dssdfsadfasd3</p>
+    <p>dssdfsadfasd4</p>
+  </div>
+
+  <div id="main_wrapper">
+    <header>
+      <!-- 页眉-->
+    </header>
+    <div id="threecolwrap">
+      <div id="twocolwrap">
+        <!-- 导航 -->
+        <nav>
+        </nav>
+        <article>
+          <!-- 区块 -->
+          aaaa
+        </article>
+      </div>
+      <aside>
+        <!-- 侧栏 -->
+      </aside>
+    </div>
+    <footer>
+      <!-- 页脚 -->
+
+      <a href="./bootstrap.html" target="_blank;return true;">跳转</a>
+      <button onclick="goPage()">跳转</button>
+    </footer>
+  </div>
+
+  <div >move</div>
+
+
+
+  <script src="../../lib/base/base.js"></script>
+  <script>
+    function goPage() {
+      window.open('bootstrap.html','newwindow','height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no');
+//      var newWin = window.open('./bootstrap.html','','',false);
+//      window.focus();
+//      newWin.blur();
+//      window.location.href = './bootstrap.html';
+//      window.location.herf = './bootstrap.html';
+//      window.history.back(-1);
+//      window.history.go(-1);
+    }
+
+    function myMove() {
+      window.moveBy(0, 100);
+      window.focus();
+      console.log('move');
+    }
+
+    var a = 'df', b = '123', c = [1,2,3], d = [a,b,c];
+
+    console.log(a.concat(b));
+    console.log(c.concat(d));
+
+    var tabs = GLOBAL.getElementsByClassName('tabs');
+
+    GLOBAL.TABS.init('tab-menu', 'content', tabs, [1,2], 'tab-select', ['mouseover', 'click']);
+
+    document.getElementById('div_1').onclick = function (e) {
+      e = window.event || e;
+      var t = e.target || e.srcElement;
+      t.style.color = 'red';
+      console.log(t);
+    };
+
+    var aa = 1, bb = 2, cc = 0;
+    function bb_aa(x) {
+      cc = aa + bb;
+    }
+    cc = bb_aa(aa);
+    console.log('cc='+cc);
+
+    var test_1 = 0;
+    test_1 = +(0 || 1);
+    console.log(test_1);
+  </script>
+</body>
+</html>

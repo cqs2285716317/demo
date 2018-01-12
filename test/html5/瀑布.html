@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+  <meta http-equiv=“X-UA-Compatible” content="IE-edge, chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>瀑布(waterful)</title>
+  <style>
+    body {
+      background: #222;
+    }
+  </style>
+</head>
+<body>
+<script>
+  //判断浏览器是否支持canvas
+  function isSupportCanvas() {
+    var canvas = document.createElement('canvas');
+    return !!(canvas.getContext && canvas.getContext("2d"));
+  }
+
+  //requestAnimationFrame会自动使用最优的帧率进行渲染,在我的浏览器上是每秒60帧
+  function setupRAF() {
+    var lastTime = 0;
+    var vendors = ['webkit', 'ms', 'moz', 'o'];
+    for(var i=0; i<vendors.length && !window.requestAnimationFrame; i++) {
+      window.requestAnimationFrame = window[vendors[i] + "RequestAnimationFrame"];
+      window.cancelAnimationFrame = window[vendors[i] + "CancelAnimationFrame"] || window[vendors[i] + "CancelRequestAnimationFrame"]
+    }
+    if(!window.requestAnimationFrame) {
+      window.requestAnimationFrame = function(callback, element) {
+        var currentTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currentTime - lastTime));
+        var futureTime = currentTime + timeToCall;
+        var id = window.setTimeout(function() {
+          callback(futureTime);
+        }, timeToCall);
+        lastTime = futureTime;
+        return id;
+      }
+    }
+    if(!window.cancelAnimationFrame) {
+      window.cancelAnimationFrame = function(id) {
+        clearTimeout(id);
+      }
+    }
+  }
+
+  //在给定的范围内随机选取一个整数
+  function randomInt(min, max) {
+    /*
+     由于位运算的操作数要求是整数，其结果也是整数，所以经过位运算的都会自动变成整数
+     可用的取整方法：
+     (1)~~n
+     (2)n<<0
+     (3)n>>0
+     (4)n|0
+     (5)Math.floor()
+     (6)Math.ceil()
+     (7)Math.round()
+     值得注意的是，位运算只是去掉小数部分，并不会改变整数部分
+     */
+    return ~~(Math.random() * (max - min) + min);
+  }
+
+  //在对象所表示的范围中随机选取一个数
+  function randomAtRange(obj) {
+    return Math.random() * (obj.max - obj.min) + obj.min;
+  }
+
+  //在对象所表示的范围中随机选取一个整数
+  function randomIntAtRange(obj) {
+    return randomInt(obj.min, obj.max);
+  }
+
+  //瀑布
+  var Waterful = function(width, height) {
+    var doublePI = Math.PI * 2;
+
+    var canvas;
+    var ctx;
+
+    //存放水粒子的数组
+    var particles = [];
+    //每帧生成或销毁粒子的数量
+    var particleChangeRate = width / 25;
+    //垂直方向上的加速度(即重力), 小数点前的0可以省略
+    var gravity = .15;
+
+    //水流粒子
+    var WaterParticle = function() {
+      //水流粒子宽度范围
+      var waterWidthRange = {min: 1, max: 20};
+      //水流粒子高度范围
+      var waterHeightRange = {min: 1, max: 45};
+      //水流粒子落到地上溅起的水花半径范围
+      var waterBubbleRadiusRange = {min: 1, max: 8};
+      //水花溅起的高度范围
+      var waterBubbleSpringRange = {min: 20, max: 30};
+
+      //色相范围
+      var hueRange = {min: 200, max: 220};
+      //饱和度范围
+      var saturationRange = {min: 30, max: 60};
+      //亮度
+      var lightnessRange = {min: 30, max: 60};
+
+      //拼接成一个HSLA颜色值(注意：普通函数的this指代它自己)
+      this.joinHSLA = function(alpha) {
+        return "hsla(" + [this.hue, this.saturation + "%", this.lightness + "%", alpha].join(",") + ")";
+      }
+
+      this.init = function() {
+        //水流粒子的最大半径
+        var waterMaxRadius = waterWidthRange.max / 2;
+        //水流粒子初始X坐标的范围
+        var xRange = {min: waterMaxRadius, max: canvas.width - waterMaxRadius};
+
+        //水流粒子宽度
+        this.width = randomAtRange(waterWidthRange);
+        //水流粒子高度
+        this.height = randomAtRange(waterHeightRange);
+        //水流粒子初始X坐标
+        this.x = randomAtRange(xRange);
+        //水流粒子初始Y坐标
+        this.y = -this.height;
+        //水流粒子垂直方向上的初始速度
+        this.velocity = 0;
+        //水流半径等于水流粒子宽度的一半
+        this.waterRadius = this.width / 2;
+        //水花半径
+        this.waterBubbleRadius = randomAtRange(waterBubbleRadiusRange);
+        //水花溅起的高度
+        this.waterBubbleSpring = randomAtRange(waterBubbleSpringRange);
+        //水流颜色
+        this.hue = randomIntAtRange(hueRange);
+        this.saturation = randomIntAtRange(saturationRange);
+        this.lightness = randomIntAtRange(lightnessRange);
+        //地板高度
+        this.floorHeight = canvas.height - waterBubbleSpringRange.min - this.height;
+
+        //水流粒子是否已经落地变成水花
+        this.isDead = false;
+      }
+
+      this.update = function() {
+        this.velocity += gravity;
+        this.y += this.velocity;
+        if(this.y > this.floorHeight) {
+          this.isDead = true;
+        }
+      }
+
+      this.render = function() {
+        if(this.isDead) {
+          //绘制水花
+          ctx.fillStyle = "hsla(" + this.hue + ", 40%, 40%, 1)";
+          ctx.fillStyle = this.joinHSLA(.3);
+          ctx.beginPath();
+          ctx.arc(this.x, canvas.height - this.waterBubbleSpring, this.waterBubbleRadius, 0, doublePI);
+          ctx.fill();
+        } else {
+          //绘制水流
+          ctx.strokeStyle = this.joinHSLA(.05);
+          ctx.lineCap = "round";
+          ctx.lineWidth = this.waterRadius;
+          ctx.beginPath();
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(this.x, this.y + this.height);
+          ctx.stroke();
+        }
+      }
+
+      this.init();
+    }
+
+    this.init = function() {
+      canvas = document.createElement("canvas");
+      //如果html不支持canvas的话会显示该文本，否则不显示
+      var textNode = document.createTextNode("Your browser can not support canvas");
+      canvas.appendChild(textNode);
+      document.body.appendChild(canvas);
+      canvas.width = width;
+      canvas.height = height;
+      //如果不支持canvas就没必要继续下去了
+      if(!isSupportCanvas()) {
+        return;
+      }
+      ctx = canvas.getContext("2d");
+      setupRAF();
+      loop();
+    }
+
+    function loop() {
+      /*
+       先绘制一层朦胧的白非常重要，这样可以省去很多用来填充颜色的粒子
+       将下面3句换成clearRect就能发现其实绘制的粒子颜色本身是很淡的，如果直接换成深的颜色就会发现空隙衔接处很不均匀
+       增大粒子数目可以发现颜色会变深，但是粒子数越多画面越卡，所以先绘制上一层白色的蒙版是一种非常取巧的做法
+       */
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(255,255,255,.06)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      //ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "lighter";
+
+      //添加新粒子
+      for(var i=0; i<particleChangeRate; i++) {
+        particles.push(new WaterParticle());
+      }
+      //更新渲染粒子
+      for(var i=0; i<particles.length; i++) {
+        particles[i].update();
+        particles[i].render();
+      }
+
+      //绘制水花，并删除消亡的粒子
+      for(var i=particles.length-1; i>=0; i--) {
+        if(particles[i].isDead) {
+          particles.splice(i, 1);
+        }
+      }
+      requestAnimationFrame(loop);
+    }
+  }
+
+  function init() {
+    var waterful = new Waterful(300, 300);
+    waterful.init();
+  }
+
+  init();
+</script>
+</body>
+</html>

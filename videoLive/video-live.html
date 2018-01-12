@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+  <title>直播</title>
+  <style>
+    html,
+    body {
+      background-color: #f1f1f1;
+      font-size: 62.5%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .content {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .video-live {
+      width: 100%;
+      padding: 0;
+      border-top: 1px #fff solid;
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    .commodity-list {
+      margin-top: 20px;
+      background-color: #fff;
+      overflow: scroll;
+    }
+
+    object {
+      width: 100%;
+    }
+
+    ul {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    ul li {
+      display: block;
+      list-style: none;
+      height: 44px;
+      line-height: 44px;
+      font-size: 1.4rem;
+      padding-left: 20px;
+      border-top: 1px #e0e0e0 solid;
+      margin: 0;
+    }
+
+    .fix-download {
+      display: none!important;
+    }
+  </style>
+  <script src="../../lib/jquery/dist/jquery.min.js"></script>
+</head>
+<body style="overflow: hidden;">
+<div class="content" id="content">
+  <div class="video-live" id="videoLive">
+    <!--<iframe width="100%" id="obj" src='https://www.douyu.com/109810' frameborder=0' allowfullscreen></iframe>-->
+
+    <iframe src="https://m.douyu.com/102411" id="obj" frameborder="0" ></iframe>
+
+    <!--<video style="width: 100%;" id="obj" src=""></video>-->
+    <!--<object id="obj" data="https://m.douyu.com/102411"></object>-->
+    <!--<object id="obj" type="application/x-shockwave-flash" name="douyu_room_flash_proxy" align="middle" allowscriptaccess="always" allowfullscreen="true" allowfullscreeninteractive="true" data="https://staticlive.douyucdn.cn/common/simplayer/WebRoomNormal.swf?v66974" width="100%" height="100%">-->
+
+    <!--</object>-->
+  </div>
+  <div class="commodity-list" id="commodityList">
+    <ul>
+      <li>商品</li>
+      <li>商品</li>
+      <li>商品</li>
+      <li>商品</li>
+      <li>商品</li>
+      <li>商品</li>
+      <li>商品</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  $(function(){
+    //iframe加载完成后执行
+ /*   $("#obj").load(function(){
+      var $frm = $(this);
+      var $contents = $frm.contents();
+      console.log($contents);
+      $contents.find("#js-fix-download").css('display', 'none');
+    });*/
+  });
+
+  window.onload = function () {
+    var global = {
+      content: document.getElementById('content'),
+      win_y: window.screen.height,
+      init: function () {
+        var _self = this;
+        var content = _self.content || document.getElementById('content'),
+                video_live = document.getElementById('videoLive'),
+                commodity_list = document.getElementById('commodityList'),
+                obj = document.getElementById('obj');
+//        console.log(obj.child(''));
+        !_self.win_y && (_self.win_y = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
+        content.style.height = _self.win_y + 'px';
+        video_live.style.height = (_self.win_y - 20) * 2 / 3 + 'px';
+        obj.style.height = (_self.win_y - 20) * 2 / 3 + 'px';
+        commodity_list.style.height = (_self.win_y - 20) / 3 + 'px';
+      }
+    };
+    global.init();
+  };
+</script>
+</body>
+</html>
